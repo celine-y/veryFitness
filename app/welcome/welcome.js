@@ -16,19 +16,19 @@ angular.module('webApp.welcome', ['ngRoute', 'firebase'])
 		$location.path('/home');
 	}
 
-	var ref = firebase.database().ref().child('Articles');
-	$scope.articles = $firebaseArray(ref);	
+	var ref = firebase.database().ref().child('Workouts');
+	$scope.workouts = $firebaseArray(ref);	
 
 	$scope.editPost = function(id){
-		var ref = firebase.database().ref().child('Articles/' + id);
+		var ref = firebase.database().ref().child('Workouts/' + id);
 		$scope.editPostData = $firebaseObject(ref);
 	};
 
 	$scope.updatePost = function(id){
-		var ref = firebase.database().ref().child('Articles/' + id);
+		var ref = firebase.database().ref().child('Workouts/' + id);
 		ref.update({
-			title: $scope.editPostData.title,
-			post: $scope.editPostData.post
+			workoutName: $scope.editPostData.workoutName,
+			exercise: $scope.editPostData.exercise
 		}).then(function(ref){
 			$scope.$apply(function(){
 				$("#editModal").modal('hide');
@@ -38,12 +38,12 @@ angular.module('webApp.welcome', ['ngRoute', 'firebase'])
 		});
 	};
 
-	$scope.deleteCnf = function(article){
-		$scope.deleteArticle = article;
+	$scope.deleteCnf = function(workout){
+		$scope.deleteWorkout = workout;
 	};
 
-	$scope.deletePost = function(deleteArticle){
-		$scope.articles.$remove(deleteArticle);
+	$scope.deletePost = function(deleteWorkout){
+		$scope.workouts.$remove(deleteWorkout);
 		$("#deleteModal").modal('hide');
 	};
 

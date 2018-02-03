@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Workout Page</title>
+</head>
+<body ng-controller="addWorkoutCtrl">
+
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a href="#" class="navbar-brand">WebApp</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="#/welcome">Home</a></li>
+			<li class="active"><a href="#/addWorkout">Add Workout</a></li>
+			<li><a href="#">Logout</a></li>
+		</ul>
+	</div>
+</nav>
+
+<div class="container" ng-show="success">
+	<div class="row">
+		<div class="alert alert-success">
+			<strong>Success!</strong> The workout has beed added.
+		</div>
+	</div>
+</div>
+
+<div class="container justify-content-md-center">
+	<form role="form" name="postForm" ng-submit="createWorkout()" novalidate="">
+		<legend>Create Workout</legend>
+			<div class="form-group">
+				<div class="form-row">
+					<div class="col" ng-class="{'has-error': postForm.titleTxt.$invalid && postForm.titleTxt.$touched}">
+						<label for="titleTxt">Workout Name</label>
+						<input type="text" name="titleTxt" class="form-control" placeholder="Title" ng-model="workout.titleTxt" ng-minlength = "3" required="">
+						<small class="help-block" ng-show="postForm.titleTxt.$error.minlength && postForm.titleTxt.$touched">Please enter a valid title for post.</small>
+					</div>
+				</div>
+			</div>
+			<div data-ng-repeat="exercise in exercises">
+				<div class="border rounded">
+					<div class="container">
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-6" ng-class="{'has-error': postForm.exerTxt.$invalid && postForm.exerTxt.$touched}">
+									<label for="exerTxt">Exercise</label>
+									<input name="exerTxt" class="form-control" placeholder="Exercise" ng-model="workout.exercise.exerTxt" ng-minlength="5" required=""></input>
+									<small class="help-block" ng-show="postForm.exerTxt.$error.minlength && postForm.exerTxt.$touched">Please enter a valid post.</small>
+								</div>
+								<div class="col-3" ng-class="{'has-error': postForm.setTxt.$invalid && postForm.setTxt.$touched}">
+									<label for="setTxt">Sets</label>
+									<input name="setTxt" class="form-control" placeholder="3" ng-model="workout.exercise.setTxt" ng-minlength="1" required=""></input>
+									<small class="help-block" ng-show="postForm.setTxt.$error.minlength && postForm.setTxt.$touched">Please enter a valid number.</small>
+								</div>
+								<div class="col-3" ng-class="{'has-error': postForm.repTxt.$invalid && postForm.repTxt.$touched}">
+									<label for="repTxt">Reps</label>
+									<input name="repTxt" class="form-control" placeholder="3" ng-model="workout.exercise.repTxt" ng-minlength="1" required=""></input>
+									<small class="help-block" ng-show="postForm.repTxt.$error.minlength && postForm.repTxt.$touched">Please enter a valid number.</small>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col" ng-class="{'has-error': postForm.linkTxt.$invalid }">
+									<label for="linkTxt">Link to Exercise</label>
+									<input name="linkTxt" class="form-control" ng-model="workout.exercise.linkTxt" required=""></input>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-12">
+					<button ng-click="addExer()" class="btn btn-success btn-sm">
+						<i class="fas fa-plus"></i>
+					</button>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary" ng-disabled="postForm.$invalid">Add Workout</button>
+			</div>
+	</form>
+</div>
+
+</body>
+</html>

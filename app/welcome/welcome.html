@@ -12,22 +12,22 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li class="active"><a href="#/welcome">Home</a></li>
-			<li><a href="#/addPost">Add Post</a></li>
+			<li><a href="#/addWorkout">Create Workout</a></li>
 			<li ng-click="logout()"><a href="#">Logout</a></li>
 		</ul>
 	</div>
 </nav>
 
 <div class="container">
-	<div class="row">
+	<div class="row justify-content-md-center">
 		<div class="col-md-12">
-			<h3>Welcome Home {{username}} !</h3>
+			<h3 class="text-center">Welcome Home {{username}} !</h3>
 		</div>
 	</div>
 </div>
 
 <div class="container">
-	<div class="row" ng-repeat="article in articles">
+	<div class="row justify-content-md-center" ng-repeat="article in articles">
 		<div class="col-md-12 well well-sm">
 			<h4>{{article.title}}</h4>
 			<p>{{article.post}}</p>
