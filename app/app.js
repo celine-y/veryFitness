@@ -6,7 +6,8 @@ angular.module('webApp', [
   'webApp.home',
   'webApp.register',
   'webApp.welcome',
-  'webApp.addWorkout'
+  'webApp.addWorkout',
+  'webApp.addExercises'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 

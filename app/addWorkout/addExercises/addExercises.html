@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Exercise Page</title>
+</head>
+<body ng-controller="addExerCtrl">
+
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a href="#" class="navbar-brand">WebApp</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="#/welcome">Home</a></li>
+			<li class="active"><a href="#/addWorkout">Add Workout</a></li>
+			<li><a href="#">Logout</a></li>
+		</ul>
+	</div>
+</nav>
+
+<div class="container" ng-show="success">
+	<div class="row">
+		<div class="alert alert-success">
+			<strong>Success!</strong> The exercise has beed added.
+		</div>
+	</div>
+</div>
+
+<div class="container justify-content-md-center">
+    <form ng-submit="addExercise()" name="exerciseForm">
+        <div class="form-row">
+            <div class="col-6">
+                <label for="exerTxt">Exercise</label>
+                <input name="exerTxt" class="form-control" placeholder="Exercise" ng-model="exerTxt" ng-minlength="5" required=""></input>
+                <small class="help-block" ng-show="exerTxt.$error.minlength && exerTxt.$touched">Please enter a valid post.</small>
+            </div>
+            <div class="col-3">
+                <label for="setTxt">Sets</label>
+                <input name="setTxt" class="form-control" placeholder="3" ng-model="setTxt" ng-minlength="1" required=""></input>
+                <small class="help-block" ng-show="setTxt.$error.minlength && setTxt.$touched">Please enter a valid number.</small>
+            </div>
+            <div class="col-3">
+                <label for="repTxt">Reps</label>
+                <input name="repTxt" class="form-control" placeholder="3" ng-model="repTxt" ng-minlength="1" required=""></input>
+                <small class="help-block" ng-show="repTxt.$error.minlength && repTxt.$touched">Please enter a valid number.</small>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="linkTxt">Link to Exercise</label>
+                <input name="linkTxt" class="form-control" ng-model="linkTxt" required=""></input>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" ng-disabled="exerciseForm.$invalid">Add Workout</button>
+        </div>
+    </form>
+        
+    <table class="table">
+    <thead>
+        <th>Exercise Name</th>
+        <th>Sets</th>
+        <th>Reps</th>
+        <th>Link</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(id, exercise) in exercises">
+        <td> {{ exercise.name }} </td>
+        <td> {{ exercise.sets }} </td>
+        <td> {{ exercise.reps }} </td>
+        <td> {{ exercise.link}} </td>
+        <td>
+            <a href="#/edit/{{ exercise.$id }}">Edit</a>
+        </td>
+        <td>
+            <a href="#" ng-click="remove(id)">Remove</a>
+        </td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+</body>
+</html>
