@@ -24,6 +24,9 @@ angular.module('webApp.addWorkout', ['ngRoute', 'firebase'])
 		var workoutToAdd = {};
 		workoutToAdd['name'] = $scope.workout.titleTxt;
 		workoutToAdd['numWeeks'] = $scope.workout.numWeeks;
+		if ($scope.workout.descTxt) {
+			workoutToAdd['descript'] = $scope.workout.descTxt;
+		}
 		workoutToAdd[uid] = true;
 
 		$scope.workouts.$add(

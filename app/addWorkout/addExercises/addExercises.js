@@ -25,7 +25,6 @@ angular.module('webApp.addExercises', ['ngRoute', 'firebase'])
     $scope.workout = $firebaseObject(workoutRef);
 
     $scope.workout.$loaded().then(function(){
-        console.log($scope.workout.numWeeks);
         if(!$scope.weeks) {
             $scope.weeks = {};
             for(var i = 1; i <= $scope.workout.numWeeks; i++){
@@ -33,9 +32,6 @@ angular.module('webApp.addExercises', ['ngRoute', 'firebase'])
             }
         }
     });
-
-    
-    console.log($scope.weeks);
     
     $scope.addExercise = function(){
         var exerciseToAdd = {};

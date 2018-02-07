@@ -27,7 +27,8 @@ angular.module('webApp.viewWorkouts', ['ngRoute', 'firebase'])
 	$scope.updateWorkout = function(id){
 		var ref = firebase.database().ref().child('Workouts/' + id);
 		ref.update({
-			name: $scope.editWorkoutData.name
+            name: $scope.editWorkoutData.name,
+            descript: $scope.editWorkoutData.descript ? $scope.editWorkoutData.descript : null
 		}).then(function(ref){
 			$scope.$apply(function(){
 				$("#editModal").modal('hide');
@@ -35,7 +36,11 @@ angular.module('webApp.viewWorkouts', ['ngRoute', 'firebase'])
 		}, function(error){
 			console.log(error);
 		});
-	};
+    };
+    
+    $scope.exerciseRedir = function(id){
+        $location.path('/addWorkout/'+id+'/addExercises');
+    };
 
 	$scope.deleteCnf = function(workout){
 		$scope.deleteWorkout = workout;
