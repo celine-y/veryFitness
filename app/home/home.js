@@ -22,9 +22,9 @@ angular.module('webApp.home', ['ngRoute', 'firebase'])
 		var password = $scope.user.password;
 		var auth = $firebaseAuth();
 
-		auth.$signInWithEmailAndPassword(username, password).then(function(){
+		auth.$signInWithEmailAndPassword(username, password).then(function(response){
 			console.log("User Login Successful");
-			CommonProp.setUser($scope.user.email);
+			CommonProp.setUser(response);
 			$location.path('/welcome');
 		}).catch(function(error){
 			$scope.errMsg = true;
@@ -36,24 +36,34 @@ angular.module('webApp.home', ['ngRoute', 'firebase'])
 
 .service('CommonProp', ['$location', '$firebaseAuth', function($location, $firebaseAuth){
 	var user = "";
+	var UID = "";
 	var auth = $firebaseAuth();
 
 	return {
 		getUser: function(){
 			if(user == ""){
-				user = localStorage.getItem("userEmail");
+				user = localStorage.getItem('userEmail');
 			}
 			return user;
 		},
-		setUser: function(value){
-			localStorage.setItem("userEmail", value);
-			user = value;
+		getUID: function(){
+			if(UID == ""){
+				UID = localStorage.getItem('uid');
+			}
+			return UID;
+		},
+		setUser: function(loggedInUser){
+			localStorage.setItem('userEmail', loggedInUser.email);
+			localStorage.setItem('uid', loggedInUser.uid);
+			user = loggedInUser.email;
+			UID = loggedInUser.uid;
 		},
 		logoutUser: function(){
 			auth.$signOut();
 			console.log("Logged Out Succesfully");
 			user = "";
 			localStorage.removeItem('userEmail');
+			localStorage.removeItem('uid');
 			$location.path('/home');
 		}
 	};

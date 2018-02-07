@@ -10,7 +10,6 @@ angular.module('webApp.addWorkout', ['ngRoute', 'firebase'])
 }])
 
 .controller('addWorkoutCtrl', ['$scope', '$firebaseArray', '$location', 'CommonProp', function($scope, $firebaseArray, $location, CommonProp){
-
 	$scope.username = CommonProp.getUser();
 
 	var workoutsRef = firebase.database().ref().child('Workouts');
@@ -21,11 +20,15 @@ angular.module('webApp.addWorkout', ['ngRoute', 'firebase'])
 	}
 
 	$scope.createWorkout = function(){
-		var workoutName = $scope.workout.titleTxt;
+		var uid = CommonProp.getUID();
+		var workoutToAdd = {};
+		workoutToAdd['name'] = $scope.workout.titleTxt;
+		workoutToAdd['numWeeks'] = $scope.workout.numWeeks;
+		workoutToAdd[uid] = true;
 
-		$scope.workouts.$add({
-			name: workoutName
-		}).then(function(ref){
+		$scope.workouts.$add(
+			workoutToAdd
+		).then(function(ref){
 			$scope.success = true;
 			window.setTimeout(function(){
 				$scope.$apply(function(){

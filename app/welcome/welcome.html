@@ -12,6 +12,7 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li class="active"><a href="#/welcome">Home</a></li>
+			<li><a href="#/view/workouts">All Workouts</a></li>
 			<li><a href="#/addWorkout">Create Workout</a></li>
 			<li ng-click="logout()"><a href="#">Logout</a></li>
 		</ul>
@@ -21,63 +22,20 @@
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col-md-12">
-			<h3 class="text-center">Welcome Home {{username}} !</h3>
+			<h3 class="text-center">Welcome Home, {{username}} !</h3>
 		</div>
 	</div>
 </div>
 
 <div class="container">
-	<div class="row justify-content-md-center" ng-repeat="article in articles">
-		<div class="col-md-12 well well-sm">
-			<h4>{{article.title}}</h4>
-			<p>{{article.post}}</p>
-			<button type="submit" class="btn btn-sm btn-primary" ng-click="editPost(article.$id)" data-target="#editModal" data-toggle="modal">Edit</button>
-			<button type="submit" class="btn btn-sm btn-danger" ng-click="deleteCnf(article)" data-target="#deleteModal" data-toggle="modal">Delete</button>
+	<div class="row justify-content-md-center">
+		<div class="col-md-6">
+			<select ng-model="selectWorkout" ng-options="workout.name for workout in workouts">
+			</select>
 		</div>
-	</div>
-</div>
-
-<div class="container">
-	<div id="editModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4>Edit Post Details</h4>
-				</div>
-				<div class="modal-body">
-					<form role="form">
-						<div class="form-group">
-							<label for="title">Title</label>
-							<input type="text" name="title" class="form-control" ng-model="editPostData.title" />
-						</div>
-						<div class="form-group">
-							<label for="post">Post</label>
-							<textarea name="post" class="form-control" ng-model="editPostData.post"></textarea>
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-primary" ng-click="updatePost(editPostData.$id)">Update Post</button>
-					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="container">
-	<div id="deleteModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header"></div>
-				<div class="modal-body">
-					<p>Are you sure you want to delete the post?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-danger" ng-click="deletePost(deleteArticle)">Delete</button>
-					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-				</div>
-			</div>
+		<div class="col-md-6">
+			<select ng-model="selectedWeek" ng-options="n for n in [] | range:1:selectWorkout.numWeeks">
+			</select>
 		</div>
 	</div>
 </div>

@@ -10,15 +10,32 @@ angular.module('webApp.addExercises', ['ngRoute', 'firebase'])
 }])
 
 .controller('addExerCtrl', ['$scope', 'CommonProp', '$firebaseArray', '$firebaseObject', '$location', '$routeParams', function($scope, CommonProp, $firebaseArray, $firebaseObject, $location, $routeParams){
-	$scope.username = CommonProp.getUser();
+    $scope.username = CommonProp.getUser();
     var workoutId = $routeParams.id;
+    $scope.exerType = 'condition';
 
 	if(!$scope.username){
 		$location.path('/home');
 	}
 
     var exerRef = firebase.database().ref().child('Exercises').orderByChild(workoutId).equalTo(true);
-    $scope.exercises = $firebaseArray(exerRef);    
+    $scope.exercises = $firebaseArray(exerRef);
+    
+    var workoutRef = firebase.database().ref().child('Workouts').child(workoutId);
+    $scope.workout = $firebaseObject(workoutRef);
+
+    $scope.workout.$loaded().then(function(){
+        console.log($scope.workout.numWeeks);
+        if(!$scope.weeks) {
+            $scope.weeks = {};
+            for(var i = 1; i <= $scope.workout.numWeeks; i++){
+                $scope.weeks[i] = {};
+            }
+        }
+    });
+
+    
+    console.log($scope.weeks);
     
     $scope.addExercise = function(){
         var exerciseToAdd = {};
@@ -26,8 +43,8 @@ angular.module('webApp.addExercises', ['ngRoute', 'firebase'])
         exerciseToAdd[workoutId] = true;
         exerciseToAdd['name'] = $scope.exerTxt;
         exerciseToAdd['link'] = $scope.linkTxt;
-        exerciseToAdd['sets'] = $scope.setTxt;
-        exerciseToAdd['reps'] = $scope.repTxt;
+        exerciseToAdd['exerType'] = $scope.exerType;
+        exerciseToAdd['weeks'] = calculateWeeks();
 
         $scope.exercises.$add(
             exerciseToAdd
@@ -51,5 +68,32 @@ angular.module('webApp.addExercises', ['ngRoute', 'firebase'])
         }, function(error){
             console.log(error);
         });
+    };
+
+    $scope.logout = function(){
+		CommonProp.logoutUser();
+	};
+
+    function calculateWeeks() {
+        if ($scope.exerType == 'condition'){
+            setExerPerWeek(5, 10);
+        } else if ($scope.exerType == 'strength'){
+            setExerPerWeek(5, 4);
+        } else if ($scope.exerType == 'maint') {
+            setExerPerWeek(3, 12);
+        } else {
+            console.log($scope.weeks);
+        }
+
+        return $scope.weeks;
+    };
+
+    function setExerPerWeek (sets, reps){
+        for(var week in $scope.weeks){
+            $scope.weeks[week] = {
+                sets: sets,
+                reps: reps
+            };
+        }
     };
 }])

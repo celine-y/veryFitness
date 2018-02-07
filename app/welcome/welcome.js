@@ -9,6 +9,16 @@ angular.module('webApp.welcome', ['ngRoute', 'firebase'])
 	});
 }])
 
+.filter('range', function() {
+	return function(input, min, max) {
+	  min = parseInt(min); //Make string input int
+	  max = parseInt(max);
+	  for (var i=min; i<=max; i++)
+		input.push(i);
+	  return input;
+	};
+})
+
 .controller('WelcomeCtrl', ['$scope', 'CommonProp', '$firebaseArray', '$firebaseObject', '$location', function($scope, CommonProp, $firebaseArray, $firebaseObject, $location){
 	$scope.username = CommonProp.getUser();
 
@@ -16,38 +26,11 @@ angular.module('webApp.welcome', ['ngRoute', 'firebase'])
 		$location.path('/home');
 	}
 
-	var ref = firebase.database().ref().child('Workouts');
-	$scope.workouts = $firebaseArray(ref);	
-
-	$scope.editPost = function(id){
-		var ref = firebase.database().ref().child('Workouts/' + id);
-		$scope.editPostData = $firebaseObject(ref);
-	};
-
-	$scope.updatePost = function(id){
-		var ref = firebase.database().ref().child('Workouts/' + id);
-		ref.update({
-			workoutName: $scope.editPostData.workoutName,
-			exercise: $scope.editPostData.exercise
-		}).then(function(ref){
-			$scope.$apply(function(){
-				$("#editModal").modal('hide');
-			});
-		}, function(error){
-			console.log(error);
-		});
-	};
-
-	$scope.deleteCnf = function(workout){
-		$scope.deleteWorkout = workout;
-	};
-
-	$scope.deletePost = function(deleteWorkout){
-		$scope.workouts.$remove(deleteWorkout);
-		$("#deleteModal").modal('hide');
-	};
+	var ref = firebase.database().ref().child('Workouts').orderByChild(CommonProp.getUID()).equalTo(true);
+	$scope.workouts = $firebaseArray(ref);
+	
 
 	$scope.logout = function(){
 		CommonProp.logoutUser();
-	}
+	};
 }])

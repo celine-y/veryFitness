@@ -11,9 +11,10 @@
 			<a href="#" class="navbar-brand">WebApp</a>
 		</div>
 		<ul class="nav navbar-nav">
-			<li><a href="#/welcome">Home</a></li>
-			<li class="active"><a href="#/addWorkout">Add Workout</a></li>
-			<li><a href="#">Logout</a></li>
+			<li class="active"><a href="#/welcome">Home</a></li>
+			<li><a href="#/view/workouts">All Workouts</a></li>
+			<li><a href="#/addWorkout">Create Workout</a></li>
+			<li ng-click="logout()"><a href="#">Logout</a></li>
 		</ul>
 	</div>
 </nav>
@@ -31,10 +32,14 @@
 		<legend>Create Workout</legend>
 		<div class="form-group">
 			<div class="form-row">
-				<div class="col" ng-class="{'has-error': workoutForm.titleTxt.$invalid && workoutForm.titleTxt.$touched}">
+				<div class="col-8" ng-class="{'has-error': workoutForm.titleTxt.$invalid && workoutForm.titleTxt.$touched}">
 					<label for="titleTxt">Workout Name</label>
 					<input type="text" name="titleTxt" class="form-control" placeholder="Title" ng-model="workout.titleTxt" ng-minlength = "3" required="">
 					<small class="help-block" ng-show="workoutForm.titleTxt.$error.minlength && workoutForm.titleTxt.$touched">Please enter a valid title for post.</small>
+				</div>
+				<div class="col-4" ng-class="{'has-error': workoutForm.numWeeks.$invalid && workoutForm.numWeeks.$touched}">
+					<lable for="numWeeks">Number of Weeks</lable>
+					<input type="text" name="numWeeks" class="form-conrol" placeholder="4" ng-model="workout.numWeeks" ng-minlength = "1" required="">
 				</div>
 			</div>
 		</div>
