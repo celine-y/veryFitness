@@ -13,7 +13,7 @@ angular.module('webApp.addWorkout', ['ngRoute', 'firebase'])
 
 	$scope.username = CommonProp.getUser();
 
-	var workoutsRef = firebase.database().ref().child('Workout');
+	var workoutsRef = firebase.database().ref().child('Workouts');
 	$scope.workouts = $firebaseArray(workoutsRef);
 
 	if(!$scope.username){
@@ -24,16 +24,14 @@ angular.module('webApp.addWorkout', ['ngRoute', 'firebase'])
 		var workoutName = $scope.workout.titleTxt;
 
 		$scope.workouts.$add({
-			workoutName: workoutName
+			name: workoutName
 		}).then(function(ref){
-			console.log("workout", ref.key);
 			$scope.success = true;
 			window.setTimeout(function(){
 				$scope.$apply(function(){
 					$scope.success = false;
 				});
 			}, 2000);
-			debugger;
 			$location.path('/addWorkout/'+ref.key+'/addExercises');
 		}, function(error){
 			console.log(error);

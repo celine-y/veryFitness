@@ -13,39 +13,41 @@ angular.module('webApp.addExercises', ['ngRoute', 'firebase'])
 	$scope.username = CommonProp.getUser();
     var workoutId = $routeParams.id;
 
-    console.log(workoutId);
-
 	if(!$scope.username){
 		$location.path('/home');
 	}
 
-    var exerRef = firebase.database().ref().child('Exercises');
-    var workoutExRef = firebase.database().ref().child('Workout Exercises');
-    $scope.exercises = $firebaseArray(exerRef);	
-    $scope.workoutExs = $firebaseArray(workoutExRef);
+    var exerRef = firebase.database().ref().child('Exercises').orderByChild(workoutId).equalTo(true);
+    $scope.exercises = $firebaseArray(exerRef);    
     
     $scope.addExercise = function(){
-        $scope.exercises.$add({
-            name: $scope.exerTxt,
-            link: $scope.linkTxt
-        }).then(function(ref){
-                       
-            $scope.workoutExs.$add({
-                exerciseId: ref.key,
-                workoutIds: workoutId,
-                sets: $scope.setTxt,
-                reps: $scope.repTxt
-            }).then(function(ref){
-                $scope.success = true;
-                // TODO: clear form after
-                window.setTimeout(function(){
-                    $scope.$apply(function(){
-                        $scope.success = false;
-                    });
-                }, 2000);
-            }, function(error){
-                console.log(error);
-            });
+        var exerciseToAdd = {};
+
+        exerciseToAdd[workoutId] = true;
+        exerciseToAdd['name'] = $scope.exerTxt;
+        exerciseToAdd['link'] = $scope.linkTxt;
+        exerciseToAdd['sets'] = $scope.setTxt;
+        exerciseToAdd['reps'] = $scope.repTxt;
+
+        $scope.exercises.$add(
+            exerciseToAdd
+        ).then(function(ref){
+            $scope.success = true;
+            // TODO: clear form after
+            window.setTimeout(function(){
+                $scope.$apply(function(){
+                    $scope.success = false;
+                });
+            }, 2000);
+        }, function(error){
+            console.log(error);
+        });
+    };
+
+    $scope.delExercise = function(exerciseId){
+        $scope.exercises.$remove(exerciseId)
+        .then(function(ref){
+
         }, function(error){
             console.log(error);
         });

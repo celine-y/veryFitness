@@ -31,8 +31,8 @@
         <div class="form-row">
             <div class="col-6">
                 <label for="exerTxt">Exercise</label>
-                <input name="exerTxt" class="form-control" placeholder="Exercise" ng-model="exerTxt" ng-minlength="5" required=""></input>
-                <small class="help-block" ng-show="exerTxt.$error.minlength && exerTxt.$touched">Please enter a valid post.</small>
+                <input name="exerTxt" class="form-control" placeholder="Exercise" ng-model="exerTxt" ng-minlength="3" required=""></input>
+                <small class="help-block" ng-show="exerTxt.$error.minlength && exerTxt.$touched">Please enter a valid exercise name.</small>
             </div>
             <div class="col-3">
                 <label for="setTxt">Sets</label>
@@ -70,12 +70,13 @@
         <td> {{ exercise.name }} </td>
         <td> {{ exercise.sets }} </td>
         <td> {{ exercise.reps }} </td>
-        <td> {{ exercise.link}} </td>
+        <td><a href="{{ exercise.link }}">{{ exercise.link }}</a></td>
         <td>
             <a href="#/edit/{{ exercise.$id }}">Edit</a>
+            <!-- TODO: fix edit page -->
         </td>
         <td>
-            <a href="#" ng-click="remove(id)">Remove</a>
+            <a ng-href="javascript: return false;" ng-click="delExercise(id)">Remove</a>
         </td>
         </tr>
     </tbody>
