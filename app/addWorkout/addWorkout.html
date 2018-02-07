@@ -38,8 +38,8 @@
 					<small class="help-block" ng-show="workoutForm.titleTxt.$error.minlength && workoutForm.titleTxt.$touched">Please enter a valid title for post.</small>
 				</div>
 				<div class="col-4" ng-class="{'has-error': workoutForm.numWeeks.$invalid && workoutForm.numWeeks.$touched}">
-					<lable for="numWeeks">Number of Weeks</lable>
-					<input type="text" name="numWeeks" class="form-conrol" placeholder="4" ng-model="workout.numWeeks" ng-minlength = "1" required="">
+					<label for="numWeeks">Number of Weeks</label>
+					<input type="text" name="numWeeks" class="form-control" placeholder="4" ng-model="workout.numWeeks" ng-minlength = "1" required="">
 				</div>
 			</div>
 		</div>

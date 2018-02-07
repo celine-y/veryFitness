@@ -29,6 +29,12 @@ angular.module('webApp.welcome', ['ngRoute', 'firebase'])
 	var ref = firebase.database().ref().child('Workouts').orderByChild(CommonProp.getUID()).equalTo(true);
 	$scope.workouts = $firebaseArray(ref);
 	
+	$scope.changeWorkout = function(){
+		var showExRef = firebase.database().ref().child('Exercises').orderByChild($scope.selectedWorkout.$id).equalTo(true);
+		$scope.showExercises = $firebaseArray(showExRef);
+
+		console.log($scope.workouts[0].name);
+	};
 
 	$scope.logout = function(){
 		CommonProp.logoutUser();
