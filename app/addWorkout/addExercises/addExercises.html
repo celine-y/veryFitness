@@ -28,93 +28,101 @@
 </div>
 
 <div class="container justify-content-md-center">
-    <form ng-submit="addExercise()" name="exerciseForm">
-        <div class="form-row">
-            <div class="col">
-                <label for="exerTxt">Exercise</label>
-                <input name="exerTxt" class="form-control" placeholder="Exercise" ng-model="exerTxt" ng-minlength="3" required=""></input>
-                <small class="help-block" ng-show="exerTxt.$error.minlength && exerTxt.$touched">Please enter a valid exercise name.</small>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-6">
-                <label for="exerciseType">Type of Exercise</label>
-                <div class="exerciseType">
-                    <div class="radio">
-                        <label><input type="radio" ng-model="exerType" value="condition">Conditioning</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" ng-model="exerType" value="strength">Strength</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" ng-model="exerType" value="maint">Maintenance</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" ng-model="exerType" value="advOpt">Advanced Options</label>
+    <div class="row">
+        <div class="col">
+            <form name="exerciseForm">
+                <div class="form-row">
+                    <div class="col">
+                        <label for="exerTxt">Exercise</label>
+                        <input name="exerTxt" class="form-control" placeholder="Name of Exercise (i.e. Squats)" ng-model="exerEditing.name" ng-minlength="3" required=""></input>
+                        <small class="help-block" ng-show="exerTxt.$error.minlength && exerTxt.$touched">Please enter a valid exercise name.</small>
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="form-row">
+                    <div class="col-6">
+                        <label for="exerciseType">Type of Exercise</label>
+                        <div class="exerciseType">
+                            <div class="radio">
+                                <label><input type="radio" ng-model="exerEditing.exerType" value="condition">Conditioning</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" ng-model="exerEditing.exerType" value="strength">Strength</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" ng-model="exerEditing.exerType" value="maint">Maintenance</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" ng-model="exerEditing.exerType" value="advOpt">Advanced Options</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- Advanced Settings -->
-        <div class="form-row" ng-show="exerType == 'advOpt'">
+                <!-- Advanced Settings -->
+                <div class="form-row" ng-show="exerEditing.exerType == 'advOpt'">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th ng-repeat="(id, week) in exerEditing.weeks">Week {{ id }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sets</td>
+                                <td ng-repeat="(id, week) in exerEditing.weeks">
+                                    <input name="setTxt" class="form-control" placeholder="3" ng-model="week.sets"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Reps</td>
+                                <td ng-repeat="(id, week) in exerEditing.weeks">
+                                    <input name="repTxt" class="form-control" placeholder="10" ng-model="week.reps"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Advanced Settings -->
+
+                <div class="form-row">
+                    <div class="col">
+                        <label for="linkTxt">Link to Exercise</label>
+                        <input name="linkTxt" class="form-control" ng-model="exerEditing.link" required=""></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" ng-click="addExercise()" ng-show="!exerEditing.$id" class="btn btn-success" ng-disabled="exerciseForm.$invalid">Add Exercise</button>
+                    <button type="submit" ng-click="updateExercise(exerEditing.$id)" ng-show="exerEditing.$id" class="btn btn-success" ng-disabled="exerciseForm.$invalid">Save Exercise</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col">
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th ng-repeat="(id, week) in weeks">Week {{ id }}</th>
-                    </tr>
+                    <th>Exercise Name</th>
+                    <th>Link</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Sets</td>
-                        <td ng-repeat="(id, week) in weeks">
-                            <input name="setTxt" class="form-control" placeholder="3" ng-model="week.sets"/>
+                    <tr ng-repeat="(id, exercise) in exercises">
+                        <td> {{ exercise.name }} </td>
+                        <td><a href="{{ exercise.link }}">{{ exercise.link }}</a></td>
+                        <td>
+                            <button type="button" ng-click="editExercise(id)" class="btn btn-sm btn-primary">Edit</button>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>Reps</td>
-                        <td ng-repeat="(id, week) in weeks">
-                            <input name="repTxt" class="form-control" placeholder="10" ng-model="week.reps"/>
+                        <td>
+                            <button type="button" ng-click="delExercise(id)" class="btn btn-sm btn-danger">Remove</a>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <!-- End Advanced Settings -->
-
-        <div class="form-row">
-            <div class="col">
-                <label for="linkTxt">Link to Exercise</label>
-                <input name="linkTxt" class="form-control" ng-model="linkTxt" required=""></input>
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" ng-disabled="exerciseForm.$invalid">Add Workout</button>
-        </div>
-    </form>
-        
-    <table class="table">
-    <thead>
-        <th>Exercise Name</th>
-        <th>Link</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-    </thead>
-    <tbody>
-        <tr ng-repeat="(id, exercise) in exercises">
-            <td> {{ exercise.name }} </td>
-            <td><a href="{{ exercise.link }}">{{ exercise.link }}</a></td>
-            <td>
-                <a href="#/edit/{{ exercise.$id }}">Edit</a>
-                <!-- TODO: fix edit page -->
-            </td>
-            <td>
-                <a ng-href="javascript: return false;" ng-click="delExercise(id)">Remove</a>
-            </td>
-        </tr>
-    </tbody>
-    </table>
+    </div>
 </div>
 
 </body>

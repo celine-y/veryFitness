@@ -32,8 +32,6 @@ angular.module('webApp.welcome', ['ngRoute', 'firebase'])
 	$scope.changeWorkout = function(){
 		var showExRef = firebase.database().ref().child('Exercises').orderByChild($scope.selectedWorkout.$id).equalTo(true);
 		$scope.showExercises = $firebaseArray(showExRef);
-
-		console.log($scope.workouts[0].name);
 	};
 
 	$scope.logout = function(){
