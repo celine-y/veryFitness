@@ -21,7 +21,7 @@
 
 <div class="container">
 	<div class="row justify-content-md-center">
-		<div class="col-md-12">
+		<div class="col-md-9">
 			<h3 class="text-center">Welcome Home, {{username}} !</h3>
 		</div>
 	</div>
@@ -30,14 +30,17 @@
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col-md-6">
-			<select ng-model="selectedWorkout"
+			<label for="workoutName">Workout</label>
+			<select id="workoutName" class="form-control" ng-model="selectedWorkout"
 				ng-init="selectedWorkout = workouts[0].name"
 				ng-options="workout.name for workout in workouts"
 				ng-change="changeWorkout()">
+				<option value="" disabled selected>Select Workout</option>
 			</select>
 		</div>
 		<div class="col-md-3">
-			<select ng-model="selectedWeek"
+			<label for="numWeek">Week #</label>
+			<select id="numWeek" class="form-control" ng-model="selectedWeek"
 				ng-init="selectedWeek = 1"
 				ng-options="n for n in [] | range:1:selectedWorkout.numWeeks"
 				ng-change="changeWeek()">
@@ -48,7 +51,7 @@
 
 <div class="container">
 	<div class="row justify-content-md-center">
-		<div class="col">
+		<div class="col-md-9">
 			<h1>Workout: {{selectedWorkout.name}}</h1>
 			<h2>Week: {{selectedWeek}}</h2>
 			<table class="table">

@@ -27,33 +27,37 @@
 	</div>
 </div>
 
-<div class="container justify-content-md-center">
-	<form role="form" name="workoutForm" ng-submit="createWorkout()" novalidate="">
-		<legend>Create Workout</legend>
-		<div class="form-group">
-			<div class="form-row">
-				<div class="col-8" ng-class="{'has-error': workoutForm.titleTxt.$invalid && workoutForm.titleTxt.$touched}">
-					<label for="titleTxt">Workout Name</label>
-					<input type="text" name="titleTxt" class="form-control" placeholder="Title" ng-model="workout.titleTxt" ng-minlength = "3" required="">
-					<small class="help-block" ng-show="workoutForm.titleTxt.$error.minlength && workoutForm.titleTxt.$touched">Please enter a valid title for post.</small>
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div class="col-md-9">		
+			<form role="form" name="workoutForm" ng-submit="createWorkout()" novalidate="">
+				<legend>Create Workout</legend>
+				<div class="form-group">
+					<div class="form-row">
+						<div class="col-8" ng-class="{'has-error': workoutForm.titleTxt.$invalid && workoutForm.titleTxt.$touched}">
+							<label for="titleTxt">Workout Name</label>
+							<input type="text" name="titleTxt" class="form-control" placeholder="Title" ng-model="workout.titleTxt" ng-minlength = "3" required="">
+							<small class="help-block" ng-show="workoutForm.titleTxt.$error.minlength && workoutForm.titleTxt.$touched">Please enter a valid title for post.</small>
+						</div>
+						<div class="col-4" ng-class="{'has-error': workoutForm.numWeeks.$invalid && workoutForm.numWeeks.$touched}">
+							<label for="numWeeks">Number of Weeks</label>
+							<input type="text" name="numWeeks" class="form-control" placeholder="4" ng-model="workout.numWeeks" ng-minlength = "1" required="">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="col" ng-class="{'has-error': workoutForm.descriptTxt.$invalid && workoutForm.descriptTxt.$touched}">
+							<label for="descriptTxt">Workout Name</label>
+							<textarea type="text" name="descriptTxt" class="form-control" placeholder="Description" ng-model="workout.descriptTxt" ng-minlength = "3"></textarea>
+							<small class="help-block" ng-show="workoutForm.descriptTxt.$error.minlength && workoutForm.descriptTxt.$touched">Please enter a valid title for post.</small>
+						</div>
+					</div>
 				</div>
-				<div class="col-4" ng-class="{'has-error': workoutForm.numWeeks.$invalid && workoutForm.numWeeks.$touched}">
-					<label for="numWeeks">Number of Weeks</label>
-					<input type="text" name="numWeeks" class="form-control" placeholder="4" ng-model="workout.numWeeks" ng-minlength = "1" required="">
+				<div class="form-group">
+					<button type="submit" class="btn btn-success" ng-disabled="workoutForm.$invalid">Add Workout</button>
 				</div>
-			</div>
-			<div class="form-row">
-				<div class="col" ng-class="{'has-error': workoutForm.descriptTxt.$invalid && workoutForm.descriptTxt.$touched}">
-					<label for="descriptTxt">Workout Name</label>
-					<textarea type="text" name="descriptTxt" class="form-control" placeholder="Description" ng-model="workout.descriptTxt" ng-minlength = "3"></textarea>
-					<small class="help-block" ng-show="workoutForm.descriptTxt.$error.minlength && workoutForm.descriptTxt.$touched">Please enter a valid title for post.</small>
-				</div>
-			</div>
+			</form>
 		</div>
-		<div class="form-group">
-			<button type="submit" class="btn btn-success" ng-disabled="workoutForm.$invalid">Add Workout</button>
-		</div>
-	</form>
+	</div>
 </div>
 
 </body>
