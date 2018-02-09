@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('webApp.welcome', ['ngRoute', 'firebase'])
+angular.module('veryFitness.welcome', ['ngRoute', 'firebase'])
 
 .config(['$routeProvider', function($routeProvider){
 	$routeProvider.when('/welcome',{

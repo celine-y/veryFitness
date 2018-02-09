@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('webApp.addWorkout', ['ngRoute', 'firebase'])
+angular.module('veryFitness.addWorkout', ['ngRoute', 'firebase'])
 
 .config(['$routeProvider', function($routeProvider){
 	$routeProvider.when('/addWorkout', {

@@ -1,6 +1,6 @@
 'use restrict';
 
-angular.module('webApp.register', ['ngRoute', 'firebase'])
+angular.module('veryFitness.register', ['ngRoute', 'firebase'])
 
 .config(['$routeProvider', function($routeProvider){
 	$routeProvider.when('/register', {

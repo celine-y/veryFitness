@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('webApp.home', ['ngRoute', 'firebase'])
+angular.module('veryFitness.home', ['ngRoute', 'firebase'])
 
 .config(['$routeProvider', function($routeProvider){
 	$routeProvider.when('/home', {

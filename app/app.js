@@ -1,14 +1,14 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('webApp', [
+angular.module('veryFitness', [
   'ngRoute',
-  'webApp.home',
-  'webApp.register',
-  'webApp.welcome',
-  'webApp.addWorkout',
-  'webApp.addExercises',
-  'webApp.viewWorkouts'
+  'veryFitness.home',
+  'veryFitness.register',
+  'veryFitness.welcome',
+  'veryFitness.addWorkout',
+  'veryFitness.addExercises',
+  'veryFitness.viewWorkouts'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 

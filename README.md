@@ -1,12 +1,8 @@
-# Simple WebApp using AngularJS and Firebase
-A simple web application using angularjs and firebase.
-It's a simple web application where a user can simply signup and signin and create post and can edit/delete their post.
+# veryFitness
+Never know what to do at the gym or forget how to do an exercise? With veryFitness, you can easily find a workout, or even make your own.
 
-Configure the app by adding the project's config object:-
-var config = {
-    apiKey: "apiKey",
-    authDomain: "projectId.firebaseapp.com",
-    databaseURL: "https://databaseName.firebaseio.com",
-    storageBucket: "bucket.appspot.com"
-  };
-firebase.initializeApp(config);
+#Technology Used
+AngularJs and Firebase
+
+#Project Details
+[User requirements](https://goo.gl/9agJrw)
