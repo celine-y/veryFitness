@@ -5,4 +5,4 @@ Never know what to do at the gym or forget how to do an exercise? With veryFitne
 AngularJs and Firebase
 
 ## Project Details
-[User requirements](https://goo.gl/9agJrw)
+[Volere project requirements](https://goo.gl/9agJrw)
