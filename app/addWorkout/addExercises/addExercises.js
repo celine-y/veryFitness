@@ -117,4 +117,13 @@ angular.module('veryFitness.addExercises', ['ngRoute', 'firebase'])
             };
         }
     };
+
+    $scope.$watch('files', function () {
+        $scope.upload($scope.files);
+    });
+    $scope.$watch('file', function () {
+        if ($scope.file != null) {
+            $scope.files = [$scope.file]; 
+        }
+    });
 }])
